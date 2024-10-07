@@ -8,12 +8,12 @@ public interface ManagePersonal {
 
     // public void createSalesMan( SalesMan record );
 
-    // public void addPerformanceReord( EvaluationRecord record , int sid );
+    // public void addSocialPerformanceRecord( SocialPerformanceRecord record , int sid );
+    // Remark: an SocialPerformanceRecord corresponds to part B of a bonus sheet
 
     // public SalesMan readSalesMan( int sid );
 
-    // public List<SalesMan> querySalesMan(String attribute , String key );
-
-    // public EvaluationRecord readEvaluationRecords( int sid );
+    // public EvaluationRecord readSocialPerformanceRecord( int sid );
+    // Remark: How do you integrate the year?
 
 }

@@ -28,7 +28,7 @@ class HighPerformanceTest {
         client = new MongoClient("localhost", 27017);
 
         // Get database 'highperformance' (creates one if not available)
-        supermongo = client.getDatabase("highperformance");
+        supermongo = client.getDatabase("highperformanceNewTest");
 
         // Get Collection 'salesmen' (creates one if not available)
         salesmen = supermongo.getCollection("salesmen");
@@ -40,7 +40,7 @@ class HighPerformanceTest {
         Document document = new Document();
         document.append("firstname" , "Sascha");
         document.append("lastname" , "Alda");
-        document.append("id" , 90133);
+        document.append("sid" , 90133);
 
         // ... now storing the object
         salesmen.insertOne(document);
@@ -50,8 +50,8 @@ class HighPerformanceTest {
         System.out.println("Printing the object (JSON): " + newDocument );
 
         // Assertion
-        Integer id = (Integer) newDocument.get("id");
-        assertEquals( 90133 , id );
+        Integer sid = (Integer) newDocument.get("sid");
+        assertEquals( 90133 , sid );
 
         // Deletion
         salesmen.drop();
@@ -72,8 +72,8 @@ class HighPerformanceTest {
         System.out.println("Printing the object (JSON): " + newDocument );
 
         // Assertion
-        Integer id = (Integer) newDocument.get("id");
-        assertEquals( 90444 , id );
+        Integer sid = (Integer) newDocument.get("sid");
+        assertEquals( 90444 , sid );
 
         // Deletion
         salesmen.drop();
