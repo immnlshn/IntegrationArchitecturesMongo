@@ -15,14 +15,17 @@ https://www.mongodb.com/docs/manual/administration/install-community/
 
 Community Version 4.2 and 7.0 (latest release) work fine with our examples.
  
- ### Further nice links for supporting MongoDB
+### Further nice links for supporting MongoDB
  
- A fully comprehensive MongoDB Tutorial for Java:<br />
- https://www.mongodb.com/docs/drivers/java/sync/current/quick-start/
+A fully comprehensive MongoDB Tutorial for Java:<br />
+https://www.mongodb.com/docs/drivers/java/sync/current/quick-start/
  
- A nice tutorial for MongoDB with a nice introduction and installation guidelines:<br />
- https://www.baeldung.com/java-mongodb
- 
+A nice tutorial for MongoDB with a nice introduction and installation guidelines:<br />
+https://www.baeldung.com/java-mongodb
+
+A good overview how to implement queries and insert-operations in MongoDB can be found here: <br />
+https://www.mongodb.com/docs/manual/crud/
+
  SQL to MongoDB Mapping Chart – another nice page :-!!<br />
  https://docs.mongodb.com/manual/reference/sql-comparison/
  
@@ -43,6 +46,9 @@ Community Version 4.2 and 7.0 (latest release) work fine with our examples.
  You need a CLI application? Here is another cool SpringBoot library that eases the implementation of an CLI:<br />
  https://spring.io/projects/spring-shell <br />
  https://www.baeldung.com/spring-shell-cli <br />
+
+New in Junit? Check out this page: <br />
+https://www.baeldung.com/junit-5
  
 
 ### Support
