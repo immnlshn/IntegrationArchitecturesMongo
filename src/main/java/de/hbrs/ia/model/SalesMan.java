@@ -1,18 +1,21 @@
 package de.hbrs.ia.model;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.bson.Document;
 
 public class SalesMan {
     private String firstname;
     private String lastname;
     private Integer sid;
-    private Integer[] gids;
+    private List<Integer> goalIDs;
 
     public SalesMan(String firstname, String lastname, Integer sid) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.sid = sid;
+        this.goalIDs = new ArrayList<>();
     }
 
     public String getFirstname() {
@@ -39,12 +42,8 @@ public class SalesMan {
         this.sid = sid;
     }
 
-    public Integer[] getGids(){
-        return gids;
-    }
-
-    public void setGids(Integer[] gids){
-        this.gids = gids;
+    public List<Integer> getGoalIDs(){
+        return goalIDs;
     }
 
     public Document toDocument() {
@@ -52,11 +51,18 @@ public class SalesMan {
         document.append("firstname" , this.firstname );
         document.append("lastname" , this.lastname );
         document.append("sid" , this.sid);
+        document.append("gids", goalIDs);
         return document;
     }
 
     public static SalesMan fromDocument(Document doc){
         try{
+            List<Integer> goalIDs = ((List<?>) doc.get("goalIDs"))
+                .stream()
+                .filter(Integer.class::isInstance)
+                .map(Integer.class::cast)
+                .collect(Collectors.toList());
+
             return new SalesMan(
                 (String) doc.get("firstname"),
                 (String) doc.get("lastname"),

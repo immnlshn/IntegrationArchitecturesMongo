@@ -8,7 +8,7 @@ import org.bson.Document;
 
 public class MongoConnection {
     private final static String MONGO_URL = "mongodb://localhost:27017";
-    private final static String DATABASE_NAME = "highperformance";
+    private final static String DATABASE_NAME = "highPerformance";
     private final static String SALESMEN_COLLECTION_NAME = "salesmen";
     private final static String SOCIAL_PERFORMANCE_COLLECTION_NAME = "socialPerformanceRatings";
 
@@ -43,6 +43,10 @@ public class MongoConnection {
 
     public MongoClient getClient(){
         return client;
+    }
+
+    public void close(){
+        this.client.close();
     }
 
     public static MongoConnection getInstance(){

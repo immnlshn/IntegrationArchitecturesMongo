@@ -1,5 +1,7 @@
 package de.hbrs.ia.model;
 
+import org.bson.Document;
+
 public class SocialPerformanceRecord {
 
     private Integer gid;
@@ -57,5 +59,23 @@ public class SocialPerformanceRecord {
         this.year = year;
     }
 
+    public Document toDocument() {
+        Document document = new Document();
+        document.append("gid" , this.gid );
+        document.append("description" , this.description );
+        document.append("targetValue" , this.targetValue);
+        document.append("actualValue" , this.actualValue);
+        document.append("year" , this.year);
+        return document;
+    }
 
+    public static SocialPerformanceRecord fromDocument(Document doc){
+        return new SocialPerformanceRecord(
+            (Integer) doc.get("gid"),
+            (String) doc.get("description"),
+            (Integer) doc.get("targetValue"),
+            (Integer) doc.get("actualValue"),
+            (Integer) doc.get("year")
+        );
+    }
 }

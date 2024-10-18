@@ -61,7 +61,7 @@ class HighPerformanceTest {
     void insertSalesManMoreObjectOriented() {
         // CREATE (Storing) the salesman business object
         // Using setter instead
-        SalesMan salesMan = new SalesMan( "Leslie" , "Malton" , 90444 );
+        SalesMan salesMan = new SalesMan( "Leslie" , "Malton" , 90444);
 
         // ... now storing the object
         salesmen.insertOne(salesMan.toDocument());
