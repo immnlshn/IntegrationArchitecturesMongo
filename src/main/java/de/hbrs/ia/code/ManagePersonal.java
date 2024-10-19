@@ -10,22 +10,24 @@ import java.util.NoSuchElementException;
  * Are there any CRUD-operations missing?
  */
 public interface ManagePersonal {
-     public void createSalesMan( SalesMan record ) throws IllegalArgumentException;
+     void createSalesMan( SalesMan record ) throws IllegalArgumentException;
 
-     public SalesMan readSalesMan( int sid );
+     SalesMan readSalesMan( int sid );
 
-     public void updateSalesMan(SalesMan record) throws NoSuchElementException;
+     void updateSalesMan(SalesMan record) throws NoSuchElementException;
 
-     public void deleteSalesMan(SalesMan record) throws NoSuchElementException;
+     void deleteSalesMan(SalesMan record) throws NoSuchElementException;
 
-     public void addSocialPerformanceRecord(SocialPerformanceRecord record , SalesMan salesMan ) throws NoSuchElementException;
+     void addSocialPerformanceRecord(SocialPerformanceRecord record , SalesMan salesman ) throws NoSuchElementException;
     // Remark: an SocialPerformanceRecord corresponds to part B of a bonus sheet
 
-     public List<SalesMan> readAllSalesMen();
+     List<SalesMan> readAllSalesMen();
 
-     public List<SocialPerformanceRecord> readSocialPerformanceRecord( SalesMan salesMan ) throws NoSuchElementException;
+     List<SocialPerformanceRecord> readSocialPerformanceRecord( SalesMan salesman ) throws NoSuchElementException;
     // Remark: How do you integrate the year?
 
-     public void deleteSocialPerformanceRecord(SocialPerformanceRecord record) throws NoSuchElementException;
+     SocialPerformanceRecord readSocialPerformanceRecord(int gid) throws NoSuchElementException;
+
+     void deleteSocialPerformanceRecord(SocialPerformanceRecord record, SalesMan salesman) throws NoSuchElementException;
 
 }

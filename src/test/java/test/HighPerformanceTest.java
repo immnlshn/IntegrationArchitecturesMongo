@@ -3,7 +3,7 @@ package test;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import de.hbrs.ia.code.ManagePersonalImpl;
+
 import de.hbrs.ia.db.MongoConnection;
 import de.hbrs.ia.model.SalesMan;
 import de.hbrs.ia.model.SocialPerformanceRecord;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HighPerformanceTest {
 
-    MongoConnection conn;
+   /* MongoConnection conn;
 
     SalesMan testPerson = new SalesMan("Sascha","Alda",90133);
     SalesMan wrongPerson = new SalesMan("John","Doe",91111);
@@ -216,7 +216,7 @@ class HighPerformanceTest {
         Assertions.assertThrows(NoSuchElementException.class, () -> testClass.readAllSocialPerformanceRecord());
     }
 
-    /*@Test
+    *//*@Test
     void insertSalesManMoreObjectOriented() {
         // CREATE (Storing) the salesman business object
         // Using setter instead

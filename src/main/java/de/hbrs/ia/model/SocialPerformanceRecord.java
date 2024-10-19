@@ -78,4 +78,15 @@ public class SocialPerformanceRecord {
             (Integer) doc.get("year")
         );
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("GID: ").append(gid).append(" ");
+        sb.append("Description: ").append(description).append(" ");
+        sb.append("Target Value: ").append(targetValue).append(" ");
+        sb.append("Actual Value: ").append(actualValue).append(" ");
+        sb.append("Year: ").append(year);
+        return sb.toString();
+    }
 }
