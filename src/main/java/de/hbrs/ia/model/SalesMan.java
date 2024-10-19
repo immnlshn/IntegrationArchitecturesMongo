@@ -9,7 +9,7 @@ public class SalesMan {
     private Integer sid;
     private String firstname;
     private String lastname;
-    private List<Integer> final goalIDs = new ArrayList<>();
+    private final List<Integer> goalIDs = new ArrayList<>();
 
     public SalesMan( Integer sid, String firstname, String lastname) {
         this.firstname = firstname;
