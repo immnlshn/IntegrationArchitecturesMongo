@@ -51,9 +51,12 @@ class HighPerformanceTest {
     @AfterEach
     void close() {
         System.out.println("Closing");
-        client.close();
-        client = null;
         MongoConnection.getInstance().dropDatabase();
+    }
+
+    @AfterAll
+    static void tearDown() {
+        System.out.println("Tearing down");
         MongoConnection.getInstance().close();
     }
 
