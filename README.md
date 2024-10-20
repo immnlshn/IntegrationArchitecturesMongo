@@ -7,6 +7,7 @@ For the backend we had to use MongoDB and implement everything using Java.
 
 Goal of the assignment was to get familiar with [MongoDB](https://www.mongodb.com/).
 
+--------------------------------------------
 ### Features
 - **Adding** Salesmen
 - **Reading** Salesmen
@@ -14,6 +15,8 @@ Goal of the assignment was to get familiar with [MongoDB](https://www.mongodb.co
 - **Adding** goals to Salesmen
 - **Removing** goals from Salesmen
 - **Reading** goals from Salesmen
+
+--------------------------------------------
 
 ### Commands
 **Salesman**
@@ -27,6 +30,8 @@ Goal of the assignment was to get familiar with [MongoDB](https://www.mongodb.co
 - ``add-goal``/``ag``: Adds a goal to a Salesman
 - ``delete-goal``/``dg``: Removes a goal from a Salesman
 
+--------------------------------------------
+
 ### Questions:
 Here are the questions that were asked during the assignment and the answers to them.
 
@@ -37,12 +42,15 @@ Here are the questions that were asked during the assignment and the answers to 
 **How do you integrate the year?**
 - The year will be implemented into the ``SocialPerformanceRating``-Objects where it is implemented as an Integer-Attribute of the said Object.
 
+--------------------------------------------
 
 ## Installation
 To install the project you need to have the following tools installed:
 - [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 - [Maven](https://maven.apache.org/download.cgi)
 - [MongoDB](https://www.mongodb.com/try/download/community) or use a [Docker Container](https://hub.docker.com/_/mongo)
+
+--------------------------------------------
 
 ### Dependencies
 The project uses the following dependencies:
@@ -51,11 +59,15 @@ The project uses the following dependencies:
 - [Spring Shell (2.1.15)](https://docs.spring.io/spring-shell/docs/2.1.0/site/reference/htmlsingle/)
 - [JUnit (5.8.1)](https://junit.org/junit5/)
 
+--------------------------------------------
+
 ### Running the Application
 To run the application just open a terminal and run the following command:
 ```shell
 java -jar hpe.jar
 ```
+
+--------------------------------------------
 
 ### Setup
 1. Clone the repository
