@@ -89,4 +89,16 @@ public class SocialPerformanceRecord {
         sb.append("Year: ").append(year);
         return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof SocialPerformanceRecord)) {
+            return false;
+        }
+        SocialPerformanceRecord that = (SocialPerformanceRecord) obj;
+        return gid.equals(that.getGid()) && description.equals(that.getDescription()) && targetValue.equals(that.getTargetValue()) && actualValue.equals(that.getActualValue()) && year.equals(that.getYear());
+    }
 }

@@ -86,4 +86,16 @@ public class SalesMan {
         sb.append("Zugeordnete Ziele: ").append(goalIDs).append(" ");
         return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof SalesMan)) {
+            return false;
+        }
+        SalesMan other = (SalesMan) obj;
+        return sid.equals(other.getId()) && firstname.equals(other.getFirstname()) && lastname.equals(other.getLastname()) && goalIDs.equals(other.goalIDs);
+    }
 }

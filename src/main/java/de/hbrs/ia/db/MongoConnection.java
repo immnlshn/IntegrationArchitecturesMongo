@@ -47,6 +47,11 @@ public class MongoConnection {
 
     public void close(){
         this.client.close();
+        instance = null;
+    }
+
+    public void dropDatabase(){
+        this.db.drop();
     }
 
     public static MongoConnection getInstance(){

@@ -63,7 +63,7 @@ public class SalesmanCommands extends AbstractShellComponent{
         SalesMan salesman = PersonalManager.getInstance().readSalesMan(sid);
         SocialPerformanceRecord record = new SocialPerformanceRecord(gid, description, target,
             actual, year);
-        PersonalManager.getInstance().addSocialPerformanceRecord(record, salesman);
+        PersonalManager.getInstance().addSocialPerformanceRecord(salesman, record);
     }
 
     @ShellMethod(

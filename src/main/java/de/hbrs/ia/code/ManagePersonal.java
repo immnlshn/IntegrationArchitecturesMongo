@@ -18,7 +18,7 @@ public interface ManagePersonal {
 
      void deleteSalesMan(SalesMan record) throws NoSuchElementException;
 
-     void addSocialPerformanceRecord(SocialPerformanceRecord record , SalesMan salesman ) throws NoSuchElementException;
+     void addSocialPerformanceRecord(SalesMan salesman , SocialPerformanceRecord record ) throws NoSuchElementException;
     // Remark: an SocialPerformanceRecord corresponds to part B of a bonus sheet
 
      List<SalesMan> readAllSalesMen();

@@ -1,23 +1,21 @@
 package test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import de.hbrs.ia.code.ManagePersonal;
+import de.hbrs.ia.code.PersonalManager;
 import de.hbrs.ia.db.MongoConnection;
 import de.hbrs.ia.model.SalesMan;
 import de.hbrs.ia.model.SocialPerformanceRecord;
+import java.util.NoSuchElementException;
 import org.bson.Document;
 import org.junit.jupiter.api.*;
-
-import java.lang.reflect.Executable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-
-import static com.mongodb.client.model.Filters.eq;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HighPerformanceTest {
     final String MONGO_URL = "mongodb://localhost:27017";
@@ -25,247 +23,169 @@ class HighPerformanceTest {
     final String SALESMEN_COLLECTION_NAME = "salesmen";
     final String SOCIAL_PERFORMANCE_COLLECTION_NAME = "socialPerformanceRatings";
 
-    MongoConnection mongo = MongoConnection.getInstance();
     MongoClient client;
     MongoDatabase db;
     MongoCollection<Document> salesmenCollection;
     MongoCollection<Document> socialPerformanceCollection;
 
+    ManagePersonal manager;
+
+    SalesMan salesMan;
+    SocialPerformanceRecord socialPerformanceRecord;
+    SocialPerformanceRecord socialPerformanceRecord2;
+
     @BeforeEach
     void setUp() {
+        System.out.println("Setting up");
         client = MongoClients.create(MONGO_URL);
         db = client.getDatabase(DATABASE_NAME);
         salesmenCollection = db.getCollection(SALESMEN_COLLECTION_NAME);
         socialPerformanceCollection = db.getCollection(SOCIAL_PERFORMANCE_COLLECTION_NAME);
+        manager = PersonalManager.getInstance();
+
+        salesMan = new SalesMan(1, "Max", "Mustermann");
+        socialPerformanceRecord = new SocialPerformanceRecord(1, "Description", 100, 50, 2021);
+        socialPerformanceRecord2 = new SocialPerformanceRecord(2, "Description2", 100, 50, 2021);
     }
 
     @AfterEach
     void close() {
-        MongoConnection.getInstance().close();
+        System.out.println("Closing");
         client.close();
+        client = null;
+        MongoConnection.getInstance().dropDatabase();
+        MongoConnection.getInstance().close();
     }
 
     @Test
-    void insertSalesMan() {
+    void insertSalesMan(){
+        System.out.println("Running insertSalesMan");
+        manager.createSalesMan(salesMan);
+        assertEquals(1, salesmenCollection.countDocuments());
 
-    }
+        SalesMan check = manager.readSalesMan(1);
+        assertEquals(check, salesMan);
 
-
-   /* MongoConnection conn;
-
-    SalesMan testPerson = new SalesMan("Sascha","Alda",90133);
-    SalesMan wrongPerson = new SalesMan("John","Doe",91111);
-
-    SocialPerformanceRecord testRecord = new SocialPerformanceRecord("90909","test",9,9,2000);
-
-    SocialPerformanceRecord wrondRecord = new SocialPerformanceRecord("90910","test2",10,10,2010);
-    ManagePersonalImpl testClass = new ManagePersonalImpl();
-    @BeforeEach
-    void setUp() {
-        conn = MongoConnection.getInstance();
-
-    }
-
-    @AfterEach
-    void close(){
-        conn.getSalesmenCollection().drop();
+        List<SalesMan> checkList = manager.readAllSalesMen();
+        assertEquals(checkList.get(0), salesMan);
     }
 
     @Test
-    void insertSalesMan() {
-        testClass.createSalesMan(testPerson);
-
-        // READ (Finding) the stored Documnent
-        Document foundDoc = conn.getSalesmenCollection().find(eq("sid",testPerson.getId())).first();
-        System.out.println("Printing the object (JSON): " + foundDoc );
-
-        // Assertion
-        Integer sid = (Integer) foundDoc.get("sid");
-        assertEquals( testPerson.getId() , sid );
-
-        // Expect Exception
-        Assertions.assertThrows(IllegalArgumentException.class, () -> testClass.createSalesMan(testPerson));
-    }
-
-    @Test
-    void deleteSalesMan() {
-        testClass.createSalesMan(testPerson);
-
-        // READ (Finding) the stored Documnent
-        Document newDocument = conn.getSalesmenCollection().find(eq("sid",testPerson.getId())).first();
-        System.out.println("Printing the object (JSON): " + newDocument );
-
-        // Assertion
-        Integer sid = (Integer) newDocument.get("sid");
-        assertEquals( 90133 , sid );
-
-        testClass.deleteSalesMan(testPerson);
-
-        Document foundDoc = conn.getSalesmenCollection().find(eq("sid",testPerson.getId())).first();
-
-        Assertions.assertEquals(null, foundDoc);
-
-        // Test Exception
-        Assertions.assertThrows(NoSuchElementException.class, () -> testClass.deleteSalesMan(wrongPerson));
-    }
-
-    @Test
-    void updateSalesMan(){
-        testClass.createSalesMan(testPerson);
-
-        SalesMan foundPerson = testClass.readSalesMan(testPerson.getId());
-
-        Assertions.assertEquals(testPerson.getId(),foundPerson.getId());
-
-        SalesMan updatedPerson = new SalesMan("Sascha","Domm",testPerson.getId());
-
-        testClass.updateSalesMan(updatedPerson);
-
-        SalesMan foundUpdatedPerson = testClass.readSalesMan(testPerson.getId());
-
-        Assertions.assertEquals(updatedPerson.getLastname(),foundUpdatedPerson.getLastname());
+    void falseInsertSalesMan(){
+        System.out.println("Running falseInsertSalesMan");
+        manager.createSalesMan(salesMan);
+        assertThrows(IllegalArgumentException.class, () -> manager.createSalesMan(salesMan));
     }
 
     @Test
     void readSalesMan() {
-        testClass.createSalesMan(testPerson);
-
-        SalesMan actPerson = testClass.readSalesMan(testPerson.getId());
-        Assertions.assertEquals(testPerson.getId(),actPerson.getId());
-
-        //Throw Exception
-        Assertions.assertThrows(NoSuchElementException.class,() -> testClass.readSalesMan(wrongPerson.getId()));
+        System.out.println("Running readSalesMan");
+        manager.createSalesMan(salesMan);
+        SalesMan check = manager.readSalesMan(1);
+        assertEquals(check, salesMan);
     }
 
     @Test
-    void readAllSalesMen(){
-        testClass.createSalesMan(testPerson);
-
-        List<SalesMan> expList = new ArrayList<SalesMan>();
-        expList.add(testPerson);
-
-        List<SalesMan> actList = testClass.readAllSalesMen();
-
-        // Assertion
-        for (SalesMan man:actList) {
-            if(!expList.contains(man)){
-                throw new NoSuchElementException();
-            }
-        }
-
-        testClass.deleteSalesMan(testPerson);
-
-        // Throw Exception
-        Assertions.assertThrows(NoSuchElementException.class, () -> testClass.readAllSalesMen());
+    void falseReadSalesMan() {
+        System.out.println("Running falseReadSalesMan");
+        assertThrows(NoSuchElementException.class, () -> manager.readSalesMan(1));
     }
 
     @Test
-    void addSocialPerformanceRecord(){
-        testClass.createSalesMan(testPerson);
+    void addSocialPerformanceRecord() {
+        System.out.println("Running addSocialPerformanceRecord");
+        manager.createSalesMan(salesMan);
+        manager.addSocialPerformanceRecord(salesMan, socialPerformanceRecord);
+        assertEquals(1, socialPerformanceCollection.countDocuments());
 
-        testClass.addSocialPerformanceRecord(testRecord,testPerson);
+        SocialPerformanceRecord check = manager.readSocialPerformanceRecord(1);
+        assertEquals(check, socialPerformanceRecord);
 
-        SalesMan testObj = testClass.readSalesMan(testPerson.getId());
-        System.out.println(testObj);
-
-        Document foundDoc = conn.getSocialPerformanceCollection().find(eq("goalId","90909")).first();
-        System.out.println("Printing the object (JSON): " + foundDoc);
-
-        Assertions.assertEquals("90909",foundDoc.get("goalId"));
-
-        // Throw Exception
-        Assertions.assertThrows(NoSuchElementException.class,() -> testClass.readSocialPerformanceRecord(wrongPerson));
+        List<SocialPerformanceRecord> checkList = manager.readSocialPerformanceRecord(salesMan);
+        assertEquals(checkList.get(0), socialPerformanceRecord);
     }
 
     @Test
-    void deleteSocialPerformanceRecord(){
-        testClass.createSalesMan(testPerson);
-
-        testClass.addSocialPerformanceRecord(testRecord,testPerson);
-
-        List<SocialPerformanceRecord> actList = testClass.readSocialPerformanceRecord(testPerson);
-
-        List<SocialPerformanceRecord> expList = new ArrayList<SocialPerformanceRecord>();
-        expList.add(testRecord);
-
-        for (SocialPerformanceRecord record:expList) {
-            if(!actList.contains(record)){
-                throw new NoSuchElementException();
-            }
-        }
-
-        // Test Deletion
-        testClass.deleteSocialPerformanceRecord(testRecord,testPerson);
-
-        // Expect Exception
-        Assertions.assertThrows(NoSuchElementException.class, () -> testClass.readSocialPerformanceRecord(testPerson));
+    void falseAddSocialPerformanceRecord() {
+        System.out.println("Running falseAddSocialPerformanceRecord");
+        assertThrows(NoSuchElementException.class, () -> manager.addSocialPerformanceRecord(salesMan, socialPerformanceRecord));
     }
 
     @Test
-    void readSocialPerformanceRecord(){
-        testClass.createSalesMan(testPerson);
-
-        testClass.addSocialPerformanceRecord(testRecord,testPerson);
-
-        List<SocialPerformanceRecord> actList = testClass.readSocialPerformanceRecord(testPerson);
-
-        List<SocialPerformanceRecord> expList = new ArrayList<SocialPerformanceRecord>();
-        expList.add(testRecord);
-
-        for (SocialPerformanceRecord record:actList) {
-            if(!expList.contains(record)){
-                throw new NoSuchElementException();
-            }
-        }
-
-        testClass.deleteSocialPerformanceRecord(testRecord,testPerson);
-
-        // Throw Exception
-        Assertions.assertThrows(NoSuchElementException.class, () -> testClass.readSocialPerformanceRecord(testPerson));
+    void deleteSalesMan() {
+        System.out.println("Running deleteSalesMan");
+        manager.createSalesMan(salesMan);
+        manager.deleteSalesMan(salesMan);
+        assertEquals(0, salesmenCollection.countDocuments());
     }
 
     @Test
-    void readAllSocialPerformanceRecord() {
-        testClass.createSalesMan(testPerson);
+    void deleteSalesManWithGoals() {
+        System.out.println("Running deleteSalesManWithGoals");
+        SalesMan salesMan = new SalesMan(1, "Max", "Mustermann");
+        manager.createSalesMan(salesMan);
+        manager.addSocialPerformanceRecord(salesMan, socialPerformanceRecord);
+        manager.deleteSalesMan(salesMan);
+        assertEquals(0, salesmenCollection.countDocuments());
+        assertEquals(0, socialPerformanceCollection.countDocuments());
 
-        testClass.addSocialPerformanceRecord(testRecord,testPerson);
-
-        List<SocialPerformanceRecord> actList = testClass.readAllSocialPerformanceRecord();
-
-        List<SocialPerformanceRecord> expList = new ArrayList<SocialPerformanceRecord>();
-        expList.add(testRecord);
-
-        for (SocialPerformanceRecord record:actList) {
-            if(!expList.contains(record)){
-                throw new NoSuchElementException();
-            }
-        }
-
-        testClass.deleteSocialPerformanceRecord(testRecord,testPerson);
-
-        // Throw Exception
-        Assertions.assertThrows(NoSuchElementException.class, () -> testClass.readAllSocialPerformanceRecord());
+        List<SocialPerformanceRecord> checkList = manager.readSocialPerformanceRecord(salesMan);
+        assertEquals(0, checkList.size());
     }
 
-    *//*@Test
-    void insertSalesManMoreObjectOriented() {
-        // CREATE (Storing) the salesman business object
-        // Using setter instead
-        SalesMan salesMan = new SalesMan( "Leslie" , "Malton" , 90444 );
+    @Test
+    void falseDeleteSalesMan() {
+        System.out.println("Running falseDeleteSalesMan");
+        assertThrows(NoSuchElementException.class, () -> manager.deleteSalesMan(salesMan));
+    }
 
-        // ... now storing the object
-        salesmen.insertOne(salesMan.toDocument());
+    @Test
+    void deleteSocialPerformanceRecord() {
+        System.out.println("Running deleteSocialPerformanceRecord");
+        manager.createSalesMan(salesMan);
+        manager.addSocialPerformanceRecord(salesMan, socialPerformanceRecord);
+        manager.deleteSocialPerformanceRecord(socialPerformanceRecord, salesMan);
+        assertEquals(0, socialPerformanceCollection.countDocuments());
 
-        // READ (Finding) the stored Documnent
-        // Mapping Document to business object would be fine...
-        Document newDocument = this.salesmen.find().first();
-        System.out.println("Printing the object (JSON): " + newDocument );
+        List<SocialPerformanceRecord> checkList = manager.readSocialPerformanceRecord(salesMan);
+        assertEquals(0, checkList.size());
+    }
 
-        // Assertion
-        Integer sid = (Integer) newDocument.get("sid");
-        assertEquals( 90444 , sid );
+    @Test
+    void falseDeleteSocialPerformanceRecord() {
+        System.out.println("Running falseDeleteSocialPerformanceRecord");
+        assertThrows(NoSuchElementException.class, () -> manager.deleteSocialPerformanceRecord(socialPerformanceRecord, salesMan));
+    }
 
-        // Deletion
-        salesmen.drop();
-    } */
+    @Test
+    void falseReadSocialPerformanceRecord() {
+        System.out.println("Running falseReadSocialPerformanceRecord");
+        assertThrows(NoSuchElementException.class, () -> manager.readSocialPerformanceRecord(1));
+    }
+
+    @Test
+    void falseUpdateSalesMan() {
+        System.out.println("Running falseUpdateSalesMan");
+        assertThrows(NoSuchElementException.class, () -> manager.updateSalesMan(salesMan));
+    }
+
+    @Test
+    void readAllSalesMen() {
+        System.out.println("Running readAllSalesMen");
+        manager.createSalesMan(salesMan);
+        List<SalesMan> checkList = manager.readAllSalesMen();
+        assertEquals(checkList.get(0), salesMan);
+    }
+
+    @Test
+    void readSocialPerformanceRecord() {
+        System.out.println("Running readSocialPerformanceRecord");
+        manager.createSalesMan(salesMan);
+        manager.addSocialPerformanceRecord(salesMan, socialPerformanceRecord);
+        manager.addSocialPerformanceRecord(salesMan, socialPerformanceRecord2);
+
+        List<SocialPerformanceRecord> checkList = manager.readSocialPerformanceRecord(salesMan);
+        assertEquals(checkList.get(0), socialPerformanceRecord);
+        assertEquals(checkList.get(1), socialPerformanceRecord2);
+    }
 }

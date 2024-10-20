@@ -17,6 +17,9 @@ public class PersonalManager implements ManagePersonal{
     private final MongoConnection mongo = MongoConnection.getInstance();
     private static PersonalManager instance;
 
+    private PersonalManager() {
+    }
+
     @Override
     public void createSalesMan(SalesMan record) throws IllegalArgumentException{
         Document result = mongo.getSalesmenCollection().find(eq("sid", record.getId())).first();
@@ -61,7 +64,7 @@ public class PersonalManager implements ManagePersonal{
     }
 
     @Override
-    public void addSocialPerformanceRecord(SocialPerformanceRecord record, SalesMan salesMan) throws NoSuchElementException{
+    public void addSocialPerformanceRecord(SalesMan salesMan, SocialPerformanceRecord record) throws NoSuchElementException{
         salesMan.getGoalIDs().add(record.getGid());
         Document result = mongo.getSocialPerformanceCollection().find(eq("gid", record.getGid())).first();
         if (result != null){
@@ -94,6 +97,8 @@ public class PersonalManager implements ManagePersonal{
 
     @Override
     public void deleteSocialPerformanceRecord(SocialPerformanceRecord record, SalesMan salesman) throws NoSuchElementException{
+        if (!salesman.getGoalIDs().contains(record.getGid()))
+            throw new NoSuchElementException("Es existiert kein Ziel mit dieser ID.");
         salesman.getGoalIDs().remove(record.getGid());
         DeleteResult result = mongo.getSocialPerformanceCollection().deleteOne(eq("gid", record.getGid()));
         if (result.getDeletedCount() == 0)
