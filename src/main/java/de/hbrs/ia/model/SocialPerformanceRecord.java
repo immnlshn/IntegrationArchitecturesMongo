@@ -81,13 +81,12 @@ public class SocialPerformanceRecord {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("GID: ").append(gid).append(", ");
-        sb.append("Description: ").append(description).append(", ");
-        sb.append("Target Value: ").append(targetValue).append(", ");
-        sb.append("Actual Value: ").append(actualValue).append(", ");
-        sb.append("Year: ").append(year);
-        return sb.toString();
+        String out = "GID: " + gid + ", "
+            + "Description: " + description + ", "
+            + "Target Value: " + targetValue + ", "
+            + "Actual Value: " + actualValue + ", "
+            + "Year: " + year;
+        return out;
     }
 
     @Override
