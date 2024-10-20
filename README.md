@@ -36,11 +36,11 @@ Goal of the assignment was to get familiar with [MongoDB](https://www.mongodb.co
 Here are the questions that were asked during the assignment and the answers to them.
 
 **Are there any CRUD-operations missing?**
-- Yes, the following operations Delete and Update also standing for "U" and "D" are missing.
-- Here the Update operation is treated special because only the Update operation for the Salesmen is needed to be implemented following the Assignment.
+- Yes, the following operations ``Delete (D)`` and ``Update (U)`` were missing.
+- In the assignment was stated that we only have to provide update functionality when we add or remove a goal to/from a salesman.
 
 **How do you integrate the year?**
-- The year will be implemented into the ``SocialPerformanceRating``-Objects where it is implemented as an Integer-Attribute of the said Object.
+- The year is implemented into the ``SocialPerformanceRating``-Object as an Integer-Attribute. We did not add any special type.
 
 --------------------------------------------
 
@@ -62,7 +62,7 @@ The project uses the following dependencies:
 --------------------------------------------
 
 ### Running the Application
-To run the application just open a terminal and run the following command:
+To run the application just open a terminal at the ``.jar``-file location and run the following command:
 ```shell
 java -jar hpe.jar
 ```
