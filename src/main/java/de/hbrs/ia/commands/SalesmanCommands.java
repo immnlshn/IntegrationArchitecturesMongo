@@ -51,7 +51,6 @@ public class SalesmanCommands extends AbstractShellComponent{
     )
     public void deleteSalesman(int sid){
         SalesMan salesman = PersonalManager.getInstance().readSalesMan(sid);
-        System.out.println("Deleting " + salesman.toString());
         PersonalManager.getInstance().deleteSalesMan(salesman);
     }
 

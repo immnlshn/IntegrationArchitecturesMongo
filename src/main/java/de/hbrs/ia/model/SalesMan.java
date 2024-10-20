@@ -80,9 +80,9 @@ public class SalesMan {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("ID: ").append(sid).append(" ");
-        sb.append("Vorname: ").append(firstname).append(" ");
-        sb.append("Nachname: ").append(lastname).append(" ");
+        sb.append("ID: ").append(sid).append(", ");
+        sb.append("Vorname: ").append(firstname).append(", ");
+        sb.append("Nachname: ").append(lastname).append(", ");
         sb.append("Zugeordnete Ziele: ").append(goalIDs).append(" ");
         return sb.toString();
     }

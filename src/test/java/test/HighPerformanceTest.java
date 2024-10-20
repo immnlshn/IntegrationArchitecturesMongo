@@ -1,6 +1,7 @@
 package test;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -19,6 +20,36 @@ import static com.mongodb.client.model.Filters.eq;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HighPerformanceTest {
+    final String MONGO_URL = "mongodb://localhost:27017";
+    final String DATABASE_NAME = "highPerformance";
+    final String SALESMEN_COLLECTION_NAME = "salesmen";
+    final String SOCIAL_PERFORMANCE_COLLECTION_NAME = "socialPerformanceRatings";
+
+    MongoConnection mongo = MongoConnection.getInstance();
+    MongoClient client;
+    MongoDatabase db;
+    MongoCollection<Document> salesmenCollection;
+    MongoCollection<Document> socialPerformanceCollection;
+
+    SalesMan testPerson = new SalesMan(90133, "Sascha", "Alda");
+    SalesMan wrongPerson = new SalesMan(91111, "John", "Doe");
+
+    SocialPerformanceRecord testRecord = new SocialPerformanceRecord(90909, "test", 9, 9, 2000);
+    SocialPerformanceRecord wrongRecord = new SocialPerformanceRecord(90910, "test2", 10, 10, 2010);
+
+    @BeforeEach
+    void setUp() {
+        client = MongoClients.create(MONGO_URL);
+        db = client.getDatabase(DATABASE_NAME);
+        salesmenCollection = db.getCollection(SALESMEN_COLLECTION_NAME);
+        socialPerformanceCollection = db.getCollection(SOCIAL_PERFORMANCE_COLLECTION_NAME);
+    }
+
+    @Test
+    void insertSalesMan() {
+
+    }
+
 
    /* MongoConnection conn;
 
