@@ -33,7 +33,7 @@ Goal of the assignment was to get familiar with [MongoDB](https://www.mongodb.co
 --------------------------------------------
 
 ### Questions:
-Here are the questions that were asked during the assignment and the answers to them.
+Here are the questions that we were asked during the assignment and the answers to them.
 
 **Are there any CRUD-operations missing?**
 - Yes, the following operations ``Delete (D)`` and ``Update (U)`` were missing.
