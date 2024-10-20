@@ -24,7 +24,7 @@ public class PersonalManager implements ManagePersonal{
     public void createSalesMan(SalesMan record) throws IllegalArgumentException{
         Document result = mongo.getSalesmenCollection().find(eq("sid", record.getId())).first();
         if (result != null){
-            throw new IllegalArgumentException("Ein Salesman mit dieser ID existiert bereits.");
+            throw new IllegalArgumentException("A Salesman with this Id already exists.");
         }
         mongo.getSalesmenCollection().insertOne(record.toDocument());
     }
@@ -34,7 +34,7 @@ public class PersonalManager implements ManagePersonal{
         Document result = mongo.getSalesmenCollection()
             .find(eq("sid", sid)).first();
         if(result == null)
-            throw new NoSuchElementException("Es existiert kein Salesman mit dieser ID.");
+            throw new NoSuchElementException("No existing Salesman with this Id.");
         return SalesMan.fromDocument(result);
     }
 
@@ -52,7 +52,7 @@ public class PersonalManager implements ManagePersonal{
     public void updateSalesMan(SalesMan record) throws NoSuchElementException{
         UpdateResult result = mongo.getSalesmenCollection().updateOne(eq("sid", record.getId()), new Document("$set", record.toDocument()));
         if (result.getMatchedCount() == 0)
-            throw new NoSuchElementException("Es existiert kein Salesman mit dieser ID.");
+            throw new NoSuchElementException("No existing Salesman with this Id.");
     }
 
     @Override
@@ -60,7 +60,7 @@ public class PersonalManager implements ManagePersonal{
         readSocialPerformanceRecord(record).forEach(goal -> deleteSocialPerformanceRecord(goal, record));
         DeleteResult result = mongo.getSalesmenCollection().deleteOne(eq("sid", record.getId()));
         if (result.getDeletedCount() == 0)
-            throw new NoSuchElementException("Es existiert kein Salesman mit dieser ID.");
+            throw new NoSuchElementException("No existing Salesman with this Id.");
     }
 
     @Override
@@ -68,7 +68,7 @@ public class PersonalManager implements ManagePersonal{
         salesMan.getGoalIDs().add(record.getGid());
         Document result = mongo.getSocialPerformanceCollection().find(eq("gid", record.getGid())).first();
         if (result != null){
-            throw new IllegalArgumentException("Es existiert bereits ein Ziel mit dieser ID.");
+            throw new IllegalArgumentException("A goal with this Id already exists..");
         }
         updateSalesMan(salesMan);
         mongo.getSocialPerformanceCollection().insertOne(record.toDocument());
@@ -91,18 +91,18 @@ public class PersonalManager implements ManagePersonal{
     public SocialPerformanceRecord readSocialPerformanceRecord(int gid) throws NoSuchElementException{
         Document result = mongo.getSocialPerformanceCollection().find(eq("gid", gid)).first();
         if(result == null)
-            throw new NoSuchElementException("Es existiert kein Ziel mit dieser ID.");
+            throw new NoSuchElementException("No existing goal with this Id.");
         return SocialPerformanceRecord.fromDocument(result);
     }
 
     @Override
     public void deleteSocialPerformanceRecord(SocialPerformanceRecord record, SalesMan salesman) throws NoSuchElementException{
         if (!salesman.getGoalIDs().contains(record.getGid()))
-            throw new NoSuchElementException("Es existiert kein Ziel mit dieser ID.");
+            throw new NoSuchElementException("No existing goal with this Id.");
         salesman.getGoalIDs().remove(record.getGid());
         DeleteResult result = mongo.getSocialPerformanceCollection().deleteOne(eq("gid", record.getGid()));
         if (result.getDeletedCount() == 0)
-            throw new NoSuchElementException("Es existiert kein Ziel mit dieser ID.");
+            throw new NoSuchElementException("No existing goal with this Id.");
         updateSalesMan(salesman);
     }
 

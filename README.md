@@ -1,74 +1,65 @@
-## Useful ressources for lecture Integration Architectures
-(Prof. Dr. Sascha Alda)
+# High Performance Application [HPE]
 
-In this readme, you find various useful links especially for working with MongoDB together with the programming language Java. These will be useful especially for the exercise sheets no. 1 and 2.
+## About
+In this repository the implementation of the first assignment in the Lecture **Integration Architectures** at the Hochschule Bonn-Rhein-Sieg is stored. The assignment was about implementing a Interface and adding full CRUD functionality to it.
+
+For the backend we had to use MongoDB and implement everything using Java.
+
+Goal of the assignment was to get familiar with [MongoDB](https://www.mongodb.com/).
+
+### Features
+- **Adding** Salesmen
+- **Reading** Salesmen
+- **Deleting** Salesmen
+- **Adding** goals to Salesmen
+- **Removing** goals from Salesmen
+- **Reading** goals from Salesmen
+
+### Commands
+**Salesman**
+- ``create-salesman``/``cs``: Creates a new Salesman
+- ``read-salesman``/``rs``: Reads a Salesman
+- ``delete-salesman``/``ds``: Deletes a Salesman
+- ``read-all-salesmen``/``ras``: Reads all Salesmen
+
+**Goals**
+- ``read-goals``/``rg``: Reads all goals of a Salesman
+- ``add-goal``/``ag``: Adds a goal to a Salesman
+- ``delete-goal``/``dg``: Removes a goal from a Salesman
+
+### Questions:
+Here are the questions that were asked during the assignment and the answers to them.
+
+**Are there any CRUD-operations missing?**
+- Yes, the following operations Delete and Update also standing for "U" and "D" are missing.
+- Here the Update operation is treated special because only the Update operation for the Salesmen is needed to be implemented following the Assignment.
+
+**How do you integrate the year?**
+- The year will be implemented into the ``SocialPerformanceRating``-Objects where it is implemented as an Integer-Attribute of the said Object.
 
 
-### Prerequisites
+## Installation
+To install the project you need to have the following tools installed:
+- [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+- [Maven](https://maven.apache.org/download.cgi)
+- [MongoDB](https://www.mongodb.com/try/download/community) or use a [Docker Container](https://hub.docker.com/_/mongo)
 
- Access to a **MongoDB** server is necessary. If you don't have one already, you should download the community server at:
- https://www.mongodb.com/try/download/community
+### Dependencies
+The project uses the following dependencies:
+- [MongoDB Java Legacy Driver (4.1.0)](https://mongodb.github.io/mongo-java-driver/4.1/apidocs/)
+- [Spring Boot (2.7.18)](https://docs.spring.io/spring-boot/docs/2.7.x/reference/htmlsingle/)
+- [Spring Shell (2.1.15)](https://docs.spring.io/spring-shell/docs/2.1.0/site/reference/htmlsingle/)
+- [JUnit (5.8.1)](https://junit.org/junit5/)
 
-or (even better) here:
+### Running the Application
+To run the application just open a terminal and run the following command:
+```shell
+java -jar hpe.jar
+```
 
-https://www.mongodb.com/docs/manual/administration/install-community/
-
-Community Version 4.2 and 7.0 (latest release) work fine with our examples.
- 
-### Further nice links for supporting MongoDB
- 
-A fully comprehensive MongoDB Tutorial for Java:<br />
-https://www.mongodb.com/docs/drivers/java/sync/current/quick-start/
- 
-A nice tutorial for MongoDB with a nice introduction and installation guidelines:<br />
-https://www.baeldung.com/java-mongodb
-
-A good overview how to implement queries and insert-operations in MongoDB can be found here: <br />
-https://www.mongodb.com/docs/manual/crud/
-
- SQL to MongoDB Mapping Chart – another nice page :-!!<br />
- https://docs.mongodb.com/manual/reference/sql-comparison/
- 
- There are obviously many tools for the administration of a MongoDB, but I personally like this one, since you find a lot of nice examples on how to define queries. Also, examples for JavaScript programs are given and well documented!<br /> 
- https://nosqlbooster.com/downloads
- 
- One of the most mature tools for maintaining data in a MongoDB database is the MongoDB compass that can be downloaded for free (commercial version available):<br /> 
- https://www.mongodb.com/products/compass
- 
- Please keep in mind that MongoDB does not possess a JOIN-operator. Instead, a lookup-Operator can be used to aggregate two collections. Here you find a nice demo with explanations:<br /> 
- https://www.stackchief.com/tutorials/$lookup%20Examples%20%7C%20MongoDB
- 
- In general, be aware that there are many solutions for defining a concrete query!
- 
- A simplified programming model to use MongoDB in Java is given by the platform Spring Boot, which simplifies the programming effort dramatically:<br />
- https://spring.io/guides/gs/accessing-data-mongodb/
- 
- You need a CLI application? Here is another cool SpringBoot library that eases the implementation of an CLI:<br />
- https://spring.io/projects/spring-shell <br />
- https://www.baeldung.com/spring-shell-cli <br />
-
-New in Junit? Check out this page: <br />
-https://www.baeldung.com/junit-5
- 
-
-### Support
-In some versions, the Java compiler from a fresh Maven project is set version 1.5, which will make the new version obsolete. You have to adjust the compiler level:<br />
-https://stackoverflow.com/questions/30690295/removing-warning-messages-on-intellij-idea-while-building-java-project
-
-### IDE
-We recommend installing and using the IDE IntelliJ. As a member of the University you can register yourself easily in order to obtain the Ultimate-Version, which is a fully equipped version with the latest features. The necessary key expires after one year, but can easily be refreshed afterwards. <br>
-https://www.jetbrains.com/idea/
-
-### Resources for UML tools:
-
-UMLet 14.3
-A good and well-aranged desktop tool for modelling UML. Installations can be found for Windows / MAC / Linux. The usability is a bit tricky in the beginning, but somewhat effective a short while ;-)
-http://www.umlet.com/
-
-Draw.io
-A lean and browser-based tool, thus, no installation of a local machine is necessary. Documents can be stored in various formats.
-https://app.diagrams.net/
-
-Mermaid:
-Mermaid is a DSL-based Editor, that supports various diagram types. It can also be integrated within a markdown document, see [here](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/)
-https://mermaid.live
+### Setup
+1. Clone the repository
+2. Open the project in your favorite IDE
+3. Run the project
+4. Use the commands to interact with the application
+5. Have fun!

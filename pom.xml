@@ -4,15 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.iar.mongodo</groupId>
-    <artifactId>MongoDBStart</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>de.hbrs.ia</groupId>
+    <artifactId>hpe</artifactId>
+    <version>1.0</version>
 
     <properties>
         <java.version>11</java.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <start-class>de.hbrs.ia.SpringShellApplication</start-class>
     </properties>
 
     <dependencies>
@@ -61,6 +60,7 @@
                 <configuration>
                     <mainClass>de.hbrs.ia.SpringShellApplication</mainClass>
                     <layout>JAR</layout>
+                    <finalName>hpe</finalName>
                 </configuration>
                 <executions>
                     <execution>

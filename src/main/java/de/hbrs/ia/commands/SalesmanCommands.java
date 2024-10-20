@@ -12,7 +12,7 @@ import org.springframework.shell.standard.ShellMethod;
 public class SalesmanCommands extends AbstractShellComponent{
 
     @ShellMethod(
-        value = "Erstelle einen Salesman",
+        value = "Create a Salesman",
         key = {"create-salesman", "cs"},
         group = "Salesman"
     )
@@ -22,7 +22,7 @@ public class SalesmanCommands extends AbstractShellComponent{
     }
 
     @ShellMethod(
-        value = "Lese ein Salesman",
+        value = "Read a Salesman",
         key = {"read-salesman", "rs"},
         group = "Salesman"
     )
@@ -31,7 +31,7 @@ public class SalesmanCommands extends AbstractShellComponent{
     }
 
     @ShellMethod(
-        value = "Lese alle Salesman",
+        value = "Read all Salesmen",
         key = {"read-all-salesmen", "ras"},
         group = "Salesman"
     )
@@ -45,7 +45,7 @@ public class SalesmanCommands extends AbstractShellComponent{
     }
 
     @ShellMethod(
-        value = "Lösche einen Salesman",
+        value = "Delete a Salesman",
         key = {"delete-salesman", "ds"},
         group = "Salesman"
     )
@@ -55,7 +55,7 @@ public class SalesmanCommands extends AbstractShellComponent{
     }
 
     @ShellMethod(
-        value = "Füge ein Ziel für einen Salesman hinzu",
+        value = "Add a goal to a Salesman",
         key = {"add-goal", "ag"},
         group = "Goal"
     )
@@ -67,7 +67,7 @@ public class SalesmanCommands extends AbstractShellComponent{
     }
 
     @ShellMethod(
-        value = "Lösche ein Ziel eines Salesman",
+        value = "Delete a goal from a Salesman",
         key = {"delete-goal", "dg"},
         group = "Goal"
     )
@@ -78,7 +78,7 @@ public class SalesmanCommands extends AbstractShellComponent{
     }
 
     @ShellMethod(
-        value = "Lese alle Ziele eines Salesman",
+        value = "Read all goals from a Salesman",
         key = {"read-goals", "rg"},
         group = "Goal"
     )
@@ -86,7 +86,7 @@ public class SalesmanCommands extends AbstractShellComponent{
         SalesMan salesman = PersonalManager.getInstance().readSalesMan(sid);
         List<SocialPerformanceRecord> records = PersonalManager.getInstance().readSocialPerformanceRecord(salesman);
         if(records.isEmpty()){
-            System.out.println("Keine Ziele vorhanden.");
+            System.out.println("No existing goals.");
             return;
         }
         records.forEach(System.out::println);
