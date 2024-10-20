@@ -18,7 +18,7 @@ public class MongoConnection {
     private final MongoCollection<Document> socialPerformanceCollection;
     private static MongoConnection instance;
 
-    private MongoConnection(){
+    private MongoConnection() {
         try {
             this.client = MongoClients.create(MONGO_URL);
             this.db = this.client.getDatabase(DATABASE_NAME);
@@ -26,7 +26,7 @@ public class MongoConnection {
             this.socialPerformanceCollection = this.db.getCollection(SOCIAL_PERFORMANCE_COLLECTION_NAME);
         }
         catch (Exception e) {
-            throw new RuntimeException("Failed to connect to MongoDB", e);
+            throw new RuntimeException("Failed to connect to MongoDB");
         }
     }
     public MongoDatabase getDatabase(){

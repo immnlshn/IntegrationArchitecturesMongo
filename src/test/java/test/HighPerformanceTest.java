@@ -31,18 +31,18 @@ class HighPerformanceTest {
     MongoCollection<Document> salesmenCollection;
     MongoCollection<Document> socialPerformanceCollection;
 
-    SalesMan testPerson = new SalesMan(90133, "Sascha", "Alda");
-    SalesMan wrongPerson = new SalesMan(91111, "John", "Doe");
-
-    SocialPerformanceRecord testRecord = new SocialPerformanceRecord(90909, "test", 9, 9, 2000);
-    SocialPerformanceRecord wrongRecord = new SocialPerformanceRecord(90910, "test2", 10, 10, 2010);
-
     @BeforeEach
     void setUp() {
         client = MongoClients.create(MONGO_URL);
         db = client.getDatabase(DATABASE_NAME);
         salesmenCollection = db.getCollection(SALESMEN_COLLECTION_NAME);
         socialPerformanceCollection = db.getCollection(SOCIAL_PERFORMANCE_COLLECTION_NAME);
+    }
+
+    @AfterEach
+    void close() {
+        MongoConnection.getInstance().close();
+        client.close();
     }
 
     @Test
