@@ -12,6 +12,7 @@ public class ShellConfig {
 
     @Bean
     public PromptProvider customPromptProvider() {
+        // Set the command line prefix
         return () -> new AttributedString("HPR: ", AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN));
     }
 

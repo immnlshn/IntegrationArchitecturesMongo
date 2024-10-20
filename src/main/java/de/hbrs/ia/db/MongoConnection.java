@@ -7,11 +7,13 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
 public class MongoConnection {
+    // Connection constants
     private final static String MONGO_URL = "mongodb://localhost:27017";
     private final static String DATABASE_NAME = "highPerformance";
     private final static String SALESMEN_COLLECTION_NAME = "salesmen";
     private final static String SOCIAL_PERFORMANCE_COLLECTION_NAME = "socialPerformanceRatings";
 
+    // Mongo Objects
     private final MongoClient client;
     private final MongoDatabase db;
     private final MongoCollection<Document> salesmenCollection;
@@ -19,6 +21,7 @@ public class MongoConnection {
     private static MongoConnection instance;
 
     private MongoConnection() {
+        // instantiate the connection
         try {
             this.client = MongoClients.create(MONGO_URL);
             this.db = this.client.getDatabase(DATABASE_NAME);
@@ -29,6 +32,7 @@ public class MongoConnection {
             throw new RuntimeException("Failed to connect to MongoDB");
         }
     }
+
     public MongoDatabase getDatabase(){
         return db;
     }
@@ -54,6 +58,7 @@ public class MongoConnection {
         this.db.drop();
     }
 
+    // Singleton pattern
     public static MongoConnection getInstance(){
         if (instance == null)
             instance = new MongoConnection();

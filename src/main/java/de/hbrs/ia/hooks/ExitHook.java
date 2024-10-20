@@ -9,6 +9,7 @@ public class ExitHook {
 
     @PreDestroy
     public void onExit() {
+        // close the connection to the database
         MongoConnection.getInstance().close();
     }
 }

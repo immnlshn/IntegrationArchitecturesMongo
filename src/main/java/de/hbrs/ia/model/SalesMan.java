@@ -46,6 +46,7 @@ public class SalesMan {
     }
 
     public Document toDocument() {
+        // create a new document
         Document document = new Document();
         document.append("sid" , this.sid);
         document.append("firstname" , this.firstname );
@@ -62,6 +63,7 @@ public class SalesMan {
                 (String) doc.get("lastname")
             );
 
+            // check if the field "gids" is filled
             if ( doc.get("gids") != null) {
                 List<Integer> goalIDs = ((List<?>) doc.get("gids"))
                     .stream()
@@ -79,12 +81,11 @@ public class SalesMan {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("ID: ").append(sid).append(", ");
-        sb.append("Vorname: ").append(firstname).append(", ");
-        sb.append("Nachname: ").append(lastname).append(", ");
-        sb.append("Zugeordnete Ziele: ").append(goalIDs).append(" ");
-        return sb.toString();
+        String out = "ID: " + sid + ", "
+            + "Vorname: " + firstname + ", "
+            + "Nachname: " + lastname + ", "
+            + "Zugeordnete Ziele: " + goalIDs + " ";
+        return out;
     }
 
     @Override
